@@ -11,6 +11,10 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
+  const emptyCartHandler = () => {
+    cartCtx.clearCart();
+  }
+
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
@@ -45,7 +49,10 @@ const Cart = (props) => {
         <button className={classes['button--alt']} onClick={props.onClose}>
           Close
         </button>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && <button onClick = {() => {
+          props.setCartIsShown(false);
+          emptyCartHandler();
+        }} className={classes.button}>Order</button>}
       </div>
     </Modal>
   );
